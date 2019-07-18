@@ -18,7 +18,7 @@ const SearchParams = () => {
       type: animal
     });
 
-    setPets(animals)
+    setPets(animals || [])
   }
 
   useEffect(() => {
