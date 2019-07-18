@@ -1,12 +1,20 @@
 import React from 'react';
 import { render } from 'react-dom';
+import { Router, Link } from "@reach/router";
 
 import SearchParams from './SearchParams';
+import Details from './Details';
 
 const App = () => (
   <div>
-    <h1>Logo</h1>
-    <SearchParams />
+    <header style={{ marginBottom: '20px' }}>
+      <Link to="/">Logo</Link>
+    </header>
+
+    <Router>
+      <SearchParams path="/" />
+      <Details path="/details/:id" />
+    </Router>
   </div>
 )
 
