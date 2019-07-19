@@ -19,6 +19,7 @@
     "react-hooks/exhaustive-deps": 1,
     "no-console": 1
   },
+  "parser": "babel-eslint",
   "parserOptions": {
     "ecmaVersion": 2019,
     "sourceType": "module",
