@@ -2,8 +2,10 @@ import React from "react";
 import pet from "@frontendmasters/pet";
 import { navigate } from "@reach/router";
 import Carousel from "./Carousel";
+import ErrorBoundary from './ErrorBoundary';
+import ThemeContext from './ThemeContext';
 
-export default class Details extends React.Component {
+class Details extends React.Component {
   state = { loading: true, showModal: false };
   componentDidMount() {
     pet
@@ -24,8 +26,13 @@ export default class Details extends React.Component {
       })
       .catch(err => this.setState({ error: err }));
   }
-  toggleModal = () => this.setState({ showModal: !this.state.showModal });
-  adopt = () => navigate(this.state.url);
+
+  toggleModal = () =>
+    this.setState({ showModal: !this.state.showModal });
+
+  adopt = () =>
+    navigate(this.state.url);
+
   render() {
     if (this.state.loading) {
       return <h1>loading … </h1>;
@@ -46,11 +53,15 @@ export default class Details extends React.Component {
         <div>
           <h1>{name}</h1>
           <h2>{`${animal} — ${breed} — ${location}`}</h2>
-          <button
-            onClick={this.toggleModal}
-          >
-            Adopt {name}
-          </button>
+          <ThemeContext.Consumer>
+            {
+              ([theme]) => (
+                <button style={{ backgroundColor: theme }}>
+                  Adopt {name}
+                </button>
+              )
+            }
+          </ThemeContext.Consumer>
           <p>{description}</p>
         </div>
       </div>
@@ -58,3 +69,10 @@ export default class Details extends React.Component {
   }
 }
 
+export default function DetailsWithErrorBoundary(props) {
+  return (
+    <ErrorBoundary>
+      <Details {...props} />
+    </ErrorBoundary>
+  )
+}
