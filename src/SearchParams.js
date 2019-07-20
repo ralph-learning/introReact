@@ -56,11 +56,13 @@ const SearchParams = () => {
         <label htmlFor="theme">
           Theme
           <select
+            value={themeHook}
             id="theme"
             onChange={e =>setThemeHook(e.target.value)}
             onBlur={e =>setThemeHook(e.target.value)}
           >
             <option value="red">Red</option>
+            <option value="darkblue">Dark Blue</option>
             <option value="brown">Brown</option>
             <option value="pink">Pink</option>
           </select>
