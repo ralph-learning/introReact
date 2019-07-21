@@ -4,6 +4,7 @@ import { navigate } from "@reach/router";
 import Carousel from "./Carousel";
 import ErrorBoundary from './ErrorBoundary';
 import ThemeContext from './ThemeContext';
+import Modal from './Modal';
 
 class Details extends React.Component {
   state = { loading: true, showModal: false };
@@ -45,6 +46,7 @@ class Details extends React.Component {
       description,
       media,
       name,
+      showModal,
     } = this.state;
 
     return (
@@ -56,13 +58,29 @@ class Details extends React.Component {
           <ThemeContext.Consumer>
             {
               ([theme]) => (
-                <button style={{ backgroundColor: theme }}>
+                <button
+                  onClick={this.toggleModal}
+                  style={{ backgroundColor: theme }}
+                >
                   Adopt {name}
                 </button>
               )
             }
           </ThemeContext.Consumer>
           <p>{description}</p>
+          {
+            showModal ? (
+              <Modal>
+                <div>
+                  <h1>Would you like to adopt {name}</h1>
+                  <div className="buttons">
+                    <button onClick={this.adopt}>Yes</button>
+                    <button onClick={this.toggleModal}>No I am a monster</button>
+                  </div>
+                </div>
+              </Modal>
+            ) : null
+          }
         </div>
       </div>
     );
